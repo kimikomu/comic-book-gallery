@@ -27,6 +27,16 @@
         </div>
     </div>
 
+	@if (ViewBag.ShowBackBar != null && ViewBag.ShowBackbar)	// check to see if backbar is null, and if it is not null, check to see if it is true
+	{
+	<div class="backbar">
+		<div class="container">
+			@Html.ActionLink("Return To List", "Index",
+				null, new { @class = "btn btn-default" })
+		</div>
+	</div>
+	}
+
     <div class="container body-content">
         @RenderBody()
         <hr />
