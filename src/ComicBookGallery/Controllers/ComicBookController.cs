@@ -26,7 +26,7 @@ namespace ComicBookGallery.Controllers
 					new Artists() { Name = "Edgar Delgado", Role = "Colors" },
 					new Artists() { Name = "Chris Eliopoulos", Role = "Letters" }
 				}
-		};
+			};
 
 			// Displays the file named after this method (Detail) from the folder named after the controller calling the method (ComicBook) in the Views folder.
 			return View(comicBook);
