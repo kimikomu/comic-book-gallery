@@ -19,7 +19,14 @@ namespace ComicBookGallery.Controllers
 		{
 			_comicBookRepository = new ComicBookRepository();
 		}
-		
+
+		public ActionResult Index()
+		{
+			var comicBooks = _comicBookRepository.GetComicBooks();
+
+			return View(comicBooks);
+		}
+
 		// call an action method that returns an ActionResult type
 		public ActionResult Detail(int? id)	// ? makes the parameter nullable so MVC can pass null if an id is not part of the request. ints default to 0, not null.
 		{
