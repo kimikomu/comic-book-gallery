@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ComicBookGallery.Data;
 using ComicBookGallery.Models;
 
 namespace ComicBookGallery.Controllers
@@ -10,23 +11,24 @@ namespace ComicBookGallery.Controllers
 	// create a controller from the controller parent
 	public class ComicBookController : Controller
 	{
-		// call an action method that returns an ActionResult type
-		public ActionResult Detail()
+		// field
+		private ComicBookRepository _comicBookRepository = null;
+
+		// constructor
+		public ComicBookController()
 		{
-			var comicBook = new ComicBook()
+			_comicBookRepository = new ComicBookRepository();
+		}
+		
+		// call an action method that returns an ActionResult type
+		public ActionResult Detail(int? id)	// ? makes the parameter nullable so MVC can pass null if an id is not part of the request. ints default to 0, not null.
+		{
+			if (id == null)
 			{
-				SeriesTitle = "The Amazing Spider-Man",
-				IssueNumber = 700,
-				DescriptionHtml = "<p>Final issue! Witness the last hours of Doc Octopus' life and his one last, great act of revenge! Even if Spider-Man survives... <strong>will Peter Parker?</strong></p>",
-				Artists = new Artists[]
-				{
-					new Artists() { Name = "Dan Slott", Role = "Script" },
-					new Artists() { Name = "Humberto Ramos", Role = "Pencils" },
-					new Artists() { Name = "Victor Olazaba", Role = "Inks" },
-					new Artists() { Name = "Edgar Delgado", Role = "Colors" },
-					new Artists() { Name = "Chris Eliopoulos", Role = "Letters" }
-				}
-			};
+				return HttpNotFound();	// HttpNotFound is a preexisting object that returns a 404
+			}
+
+			var comicBook = _comicBookRepository.GetComicBook((int)id);	// cast back to int bc int? is not the same as int
 
 			// Displays the file named after this method (Detail) from the folder named after the controller calling the method (ComicBook) in the Views folder.
 			return View(comicBook);
